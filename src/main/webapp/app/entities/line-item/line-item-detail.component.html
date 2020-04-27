@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lineItem">
+            <h2><span>Line Item</span> {{ lineItem.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Quantity</span></dt>
+                <dd>
+                    <span>{{ lineItem.quantity }}</span>
+                </dd>
+                <dt><span>Item</span></dt>
+                <dd>
+                    <div *ngIf="lineItem.item">
+                        <a [routerLink]="['/item', lineItem.item?.id, 'view']">{{ lineItem.item?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Discount</span></dt>
+                <dd>
+                    <div *ngIf="lineItem.discount">
+                        <a [routerLink]="['/discount', lineItem.discount?.id, 'view']">{{ lineItem.discount?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Order</span></dt>
+                <dd>
+                    <div *ngIf="lineItem.order">
+                        <a [routerLink]="['/order', lineItem.order?.id, 'view']">{{ lineItem.order?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/line-item', lineItem.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div>
+    <h2 id="page-heading">
+        <span>Line Items</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-line-item" [routerLink]="['/line-item/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Line Item
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="lineItems?.length === 0">
+        <span>No lineItems found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="lineItems?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Quantity</span></th>
+                    <th scope="col" ><span>Item</span></th>
+                    <th scope="col" ><span>Discount</span></th>
+                    <th scope="col" ><span>Order</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lineItem of lineItems ;trackBy: trackId">
+                    <td><a [routerLink]="['/line-item', lineItem.id, 'view']">{{ lineItem.id }}</a></td>
+                    <td>{{ lineItem.quantity }}</td>
+                    <td>
+                        <div *ngIf="lineItem.item">
+                            <a [routerLink]="['/item', lineItem.item?.id, 'view']" >{{ lineItem.item?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="lineItem.discount">
+                            <a [routerLink]="['/discount', lineItem.discount?.id, 'view']" >{{ lineItem.discount?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="lineItem.order">
+                            <a [routerLink]="['/order', lineItem.order?.id, 'view']" >{{ lineItem.order?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/line-item', lineItem.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/line-item', lineItem.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(lineItem)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

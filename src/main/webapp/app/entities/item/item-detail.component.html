@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="item">
+            <h2><span>Item</span> {{ item.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ item.name }}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{ item.description }}</span>
+                </dd>
+                <dt><span>Price</span></dt>
+                <dd>
+                    <span>{{ item.price }}</span>
+                </dd>
+                <dt><span>Image</span></dt>
+                <dd>
+                    <div *ngIf="item.image">
+                        <a (click)="openFile(item?.imageContentType!, item?.image)">
+                            <img [src]="'data:' + item.imageContentType + ';base64,' + item.image" style="max-width: 100%;" alt="item image"/>
+                        </a>
+                        {{ item.imageContentType }}, {{ byteSize(item.image) }}
+                    </div>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <div *ngIf="item.type">
+                        <a [routerLink]="['/item-type', item.type?.id, 'view']">{{ item.type?.type }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/item', item.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

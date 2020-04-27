@@ -43,6 +43,22 @@ public class CacheConfiguration {
             createCache(cm, ph.virtual.talipapa.domain.User.class.getName());
             createCache(cm, ph.virtual.talipapa.domain.Authority.class.getName());
             createCache(cm, ph.virtual.talipapa.domain.User.class.getName() + ".authorities");
+            createCache(cm, ph.virtual.talipapa.domain.Region.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Country.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Discount.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.DiscountType.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.UnitOfMeasure.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Address.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Order.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Order.class.getName() + ".items");
+            createCache(cm, ph.virtual.talipapa.domain.LineItem.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Customer.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Customer.class.getName() + ".orders");
+            createCache(cm, ph.virtual.talipapa.domain.Customer.class.getName() + ".addresses");
+            createCache(cm, ph.virtual.talipapa.domain.Item.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.Item.class.getName() + ".units");
+            createCache(cm, ph.virtual.talipapa.domain.ItemType.class.getName());
+            createCache(cm, ph.virtual.talipapa.domain.UserExtra.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,93 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-order-heading">Create or edit a Order</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_orderNumber">Order Number</label>
+                    <input type="number" class="form-control" name="orderNumber" id="field_orderNumber"
+                           formControlName="orderNumber"/>
+                    <div *ngIf="editForm.get('orderNumber')!.invalid && (editForm.get('orderNumber')!.dirty || editForm.get('orderNumber')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('orderNumber')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('orderNumber')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_orderDate">Order Date</label>
+                    <div class="d-flex">
+                        <input id="field_orderDate" type="datetime-local" class="form-control" name="orderDate" formControlName="orderDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('orderDate')!.invalid && (editForm.get('orderDate')!.dirty || editForm.get('orderDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('orderDate')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('orderDate')?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_processDate">Process Date</label>
+                    <div class="input-group">
+                        <input id="field_processDate" type="text" class="form-control" name="processDate" ngbDatepicker #processDateDp="ngbDatepicker" formControlName="processDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="processDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_handler">Handler</label>
+                    <select class="form-control" id="field_handler" name="handler" formControlName="handler">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userExtraOption.id === editForm.get('handler')!.value?.id ? editForm.get('handler')!.value : userExtraOption" *ngFor="let userExtraOption of handlers; trackBy: trackById">{{ userExtraOption.fullName }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_discount">Discount</label>
+                    <select class="form-control" id="field_discount" name="discount" formControlName="discount">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="discountOption.id === editForm.get('discount')!.value?.id ? editForm.get('discount')!.value : discountOption" *ngFor="let discountOption of discounts; trackBy: trackById">{{ discountOption.name }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_customer">Customer</label>
+                    <select class="form-control" id="field_customer" name="customer" formControlName="customer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="customerOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : customerOption" *ngFor="let customerOption of customers; trackBy: trackById">{{ customerOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

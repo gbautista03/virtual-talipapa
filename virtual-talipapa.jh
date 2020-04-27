@@ -1,0 +1,111 @@
+entity Region {
+	regionName String required
+}
+
+entity Country {
+	countryName String required
+}
+
+entity Discount {
+	name String required,
+    value Float required
+}
+
+entity DiscountType {
+	name String required,
+    modifier String
+}
+
+entity UnitOfMeasure {
+	name String required,
+    abbreviation String required
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Address {
+	name String required,
+	streetAddress String required,
+	postalCode String required,
+	city String required,
+	stateProvince String required,
+    landmark String
+}
+
+entity Order {
+	orderNumber Integer required unique,
+    orderDate Instant required,
+    processDate LocalDate
+}
+
+entity LineItem {
+	quantity Integer required,
+}
+
+/**
+ * The Employee entity.
+ */
+entity Customer {
+	/**
+	* The firstname attribute.
+	*/
+	firstName String required,
+	lastName String required,
+	email String required,
+	phoneNumber String required,
+	joinDate Instant
+}
+
+entity Item {
+	name String required,
+	description String required,
+    price Double required,
+    image ImageBlob
+}
+
+entity ItemType {
+	type String required,
+    description String,
+    image ImageBlob
+}
+
+entity UserExtra {
+	fullName String,
+    contactNumber String
+}
+
+enum Language {
+    FRENCH, ENGLISH, SPANISH
+}
+
+relationship OneToOne {
+	Country{region} to Region,
+    Address{country} to Country,
+    Order{handler(fullName)} to UserExtra,
+    Item{type(type)} to ItemType,
+    LineItem{item(name)} to Item,
+    Discount{type(name)} to DiscountType,
+    Order{discount(name)} to Discount,
+    LineItem{discount(name)} to Discount,
+    UserExtra{parentUser} to User
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Customer{orders} to Order,
+    Order{items(name)} to LineItem,
+    Customer{addresses(name)} to Address,
+    Item{unit(abbreviation)} to UnitOfMeasure
+}
+// Set pagination options
+paginate Item, Customer with infinite-scroll
+paginate Order with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

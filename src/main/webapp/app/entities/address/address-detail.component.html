@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="address">
+            <h2><span>Address</span> {{ address.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ address.name }}</span>
+                </dd>
+                <dt><span>Street Address</span></dt>
+                <dd>
+                    <span>{{ address.streetAddress }}</span>
+                </dd>
+                <dt><span>Postal Code</span></dt>
+                <dd>
+                    <span>{{ address.postalCode }}</span>
+                </dd>
+                <dt><span>City</span></dt>
+                <dd>
+                    <span>{{ address.city }}</span>
+                </dd>
+                <dt><span>State Province</span></dt>
+                <dd>
+                    <span>{{ address.stateProvince }}</span>
+                </dd>
+                <dt><span>Landmark</span></dt>
+                <dd>
+                    <span>{{ address.landmark }}</span>
+                </dd>
+                <dt><span>Country</span></dt>
+                <dd>
+                    <div *ngIf="address.country">
+                        <a [routerLink]="['/country', address.country?.id, 'view']">{{ address.country?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span>Customer</span></dt>
+                <dd>
+                    <div *ngIf="address.customer">
+                        <a [routerLink]="['/customer', address.customer?.id, 'view']">{{ address.customer?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/address', address.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
